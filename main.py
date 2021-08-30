@@ -1,5 +1,5 @@
 from selenium import webdriver
-from selenium.common.exceptions import ElementClickInterceptedException
+from selenium.common.exceptions import ElementClickInterceptedException, NoSuchElementException
 from selenium.webdriver.common.keys import Keys
 import time
 from password import *
@@ -34,7 +34,7 @@ driver.find_element_by_xpath("//input[@type='text']").send_keys(FACEBOOK_EMAIL)
 driver.find_element_by_xpath("//input[@type='password']").send_keys(FACEBOOK_PASSWORD, Keys.ENTER)
 
 driver.switch_to.window(main_page)
-time.sleep(5)
+time.sleep(6)
 driver.find_element_by_xpath("//button[@data-testid='allow']").click()
 time.sleep(1)
 driver.find_element_by_xpath("//button[@data-testid='allow']").click()
@@ -47,10 +47,10 @@ for _ in range(100):
 
     try:
         driver.find_element_by_xpath("//button[@title='Wróć do Tindera']").click()
-    except ElementClickInterceptedException:
+    except NoSuchElementException:
         try:
             driver.find_element_by_xpath("/html/body/div[2]/div/div/div[2]/button[2]").click()
-        except ElementClickInterceptedException:
+        except NoSuchElementException:
             continue
 
 
